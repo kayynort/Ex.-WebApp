@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Feedback on your Current Academic Courses</title>
+    <style>
+        body {
+            background-color: #FFD100; /* Maryland Gold */
+            color: #000; /* Black text */
+            font-family: 'Arial', sans-serif; /* Choose a suitable font */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #D50000; /* Maryland Red */
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #555; /* Grey text */
+            font-weight: normal; /* Ensure it's not bold */
+        }
+
+        p {
+            color: #D50000; /* Maryland Red */
+        }
+
+        form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #D50000; /* Maryland Red border */
+            border-radius: 10px;
+            background-color: #fff; /* White background */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc; /* Light gray border */
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #D50000; /* Maryland Red */
+            color: #fff; /* White text */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            color: #D50000; /* Maryland Red for error messages */
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Submit Feedback on your Current Academic Courses</h1>
+    <h2>All data will be de-identified. Thank you for participating in our feedback process.</h2>
+
+    <form id="courseForm" action="/add_course" method="POST" onsubmit="return validateForm()">
+        <label for="uid">Student UID # (9 digits):</label>
+        <input type="number" id="uid" name="uid" min="100000000" max="999999999" required>
+
+        <label for="year">Year in School:</label>
+        <select id="year" name="year" required>
+            <option value="">Select Year</option>
+            <option value="Freshman">Freshman</option>
+            <option value="Sophomore">Sophomore</option>
+            <option value="Junior">Junior</option>
+            <option value="Senior">Senior</option>
+        </select>
+
+        <label for="credits_completed">Number of Credits Completed:</label>
+        <input type="number" id="credits_completed" name="credits_completed" min="0" required>
+
+        <label for="name">Course Name (Ex. HIST100):</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <label for="satisfaction">Satisfaction with Current Course Work (1-10). 1 = Not Satisfied at All and 10 = Extremely Satisfied:</label>
+        <input type="number" id="satisfaction" name="satisfaction" min="1" max="10" required>
+
+        <label for="reason">Reason for Satisfaction Rating:</label>
+        <textarea id="reason" name="reason"></textarea>
+
+        <button type="submit">Submit Feedback</button>
+
+        <ul id="errorList"></ul>
+
+    </form>
+
+    <script>
+        function validateForm() {
+            var uid = document.getElementById('uid').value;
+            var year = document.getElementById('year').value;
+            var creditsCompleted = document.getElementById('credits_completed').value;
+            var courseName = document.getElementById('name').value;
+            var description = document.getElementById('description').value;
+            var satisfaction = document.getElementById('satisfaction').value;
+
+            var errorList = [];
+
+            // Validate UID
+            if (uid.length !== 9) {
+                errorList.push("UID must be 9 digits.");
+            }
+
+            // Add more validation rules for other fields as needed...
+
+            // Display errors if any
+            if (errorList.length > 0) {
+                displayErrors(errorList);
+                return false;
+            }
+
+            return true;
+        }
+
+        function displayErrors
