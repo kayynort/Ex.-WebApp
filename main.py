@@ -4,15 +4,15 @@
 
 # Step 2: Create Python Script
 
-# Step 2.2: Import components from the Flask framework
+# Step 2.1: Import components from the Flask framework
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.exceptions import BadRequestKeyError  # Import BadRequestKeyError
 import sqlite3
 
-# Step 2.3: Create the Flask App
+# Step 2.2: Create the Flask App
 app = Flask(__name__)
 
-# Step 2.4: Create a connection to the database and define the 'courses' table
+# Step 2.3: Create a connection to the database and define the 'courses' table
 conn = sqlite3.connect('educational_data.db')
 cursor = conn.cursor()
 cursor.execute('''
@@ -31,8 +31,8 @@ conn.commit()
 conn.close()
 
 
-# Step 2.5: Create a route for the home page
-# Step 2.5: Create a route for the home page
+# Step 3: Create a route for the home page
+# Step 3.1: Create a route for the home page
 @app.route('/')
 def index():
     # No need to fetch courses from the database
@@ -40,7 +40,7 @@ def index():
 
 
 
-# Step 2.6: Create a route for adding a new course
+# Step 3.2: Create a route for adding a new course
 @app.route('/add_course', methods=['POST'])
 def add_course():
     try:
@@ -75,6 +75,6 @@ def add_course():
         return render_template('error.html', error_message=str(e))
 
 
-# Step 2.7: Run the Flask app
+# Step 4: Run the Flask app
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8080)
